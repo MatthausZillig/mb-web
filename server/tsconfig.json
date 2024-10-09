@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "strict": true,
+      "outDir": "./dist",
+      "rootDir": "./",
+      "moduleResolution": "node",
+      "resolveJsonModule": true
+    },
+    "include": ["server.ts"],
+    "exclude": ["node_modules"]
+  }
+  
