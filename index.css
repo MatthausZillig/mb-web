@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    line-height: 1.5;
+    font-weight: 700;
+    font-display: swap;
+    src: url(/src/assets/fonts/roboto-bold.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    line-height: 1.5;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/assets/fonts/roboto-regular.woff2) format('woff2');
+  }
+  @font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    line-height: 1.5;
+    font-weight: 300;
+    font-display: swap;
+    src: url(/src/assets/fonts/roboto-light.woff2) format('woff2');
+  }
+}

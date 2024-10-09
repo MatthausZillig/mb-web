@@ -2,7 +2,7 @@ function RoutePage() {
   return (
     <>
       <div>
-        <p>Root page</p>
+        <h1 className="text-3xl font-bold underline">Hello world!</h1>
       </div>
     </>
   )
