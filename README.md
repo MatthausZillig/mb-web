@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+## Tecnologias Utilizadas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend:
 
-Currently, two official plugins are available:
+- React
+- Vite (para build e desenvolvimento)
+- React Hook Form (para gerenciamento de formulários)
+- Yup (para validação de esquemas)
+- Tailwind CSS (para estilização)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Backend:
 
-## Expanding the ESLint configuration
+- Node.js
+- Express
+- Cors
+- Compressor
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Pré-requisitos
 
-- Configure the top-level `parserOptions` property like this:
+Antes de começar, certifique-se de ter instalado em sua máquina:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Node.js 18 / 20+
+- pnpm
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Se você não tem o pnpm instalado, você pode instalá-lo seguindo esse método:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+`npm install -g pnpm`
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Para mais detalhes sobre a instalação do pnpm, visite a documentação oficial do [pnpm](https://pnpm.io/installation).
+
+Instalação e Execução
+Clone o repositório:
+
+`git clone git@github.com:MatthausZillig/mb-web.git`
+
+`cd md-web`
+
+### 1 - Instale as dependências:
+
+`pnpm install`
+
+### 2 - Build do cliente:
+
+`pnpm build`
+
+### 3 - Inicie o servidor:
+
+`cd server`
+
+`pnpm start`
+
+Acesse a aplicação em seu navegador em http://localhost:3000 (ou a porta configurada).
+
+> Importância do Processo de Build
+> O processo de build do cliente (passo 3) é crucial e deve ser executado antes de iniciar o servidor. Aqui está o porquê:
+>
+> - Geração da Pasta dist: O comando pnpm build gera uma pasta dist (distribuição) na raiz do projeto. Esta pasta contém uma versão otimizada e pronta para produção da aplicação React.
+> - Arquivos Estáticos Otimizados: Os arquivos na pasta dist são versões otimizadas dos arquivos fonte. Isso inclui HTML, JavaScript, CSS e outros assets, todos processados para terem um tamanho reduzido e melhor performance.
+> - Servindo Arquivos Estáticos: O servidor Express é configurado para servir os arquivos estáticos diretamente da pasta dist. Isso significa que quando um usuário acessa a aplicação, ele recebe estes arquivos otimizados, resultando em carregamentos mais rápidos e melhor performance.
