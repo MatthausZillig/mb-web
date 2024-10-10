@@ -1,27 +1,16 @@
-import { useFormContext } from 'react-hook-form'
+import { FieldValues, useFormContext } from 'react-hook-form'
+import { UserTypeSelectionProps } from '../../../types/step-form'
 
-interface Option {
-  value: string
-  label: string
-}
-
-interface UserTypeSelectionProps {
-  name: string
-  label: string
-  options: Option[]
-  onUserTypeChange?: (value: string) => void
-}
-
-export function UserTypeSelectionField({
+export function UserTypeSelectionField<TFieldValues extends FieldValues>({
   name,
   label,
   options,
   onUserTypeChange,
-}: UserTypeSelectionProps) {
+}: UserTypeSelectionProps<TFieldValues>) {
   const {
     register,
     formState: { errors },
-  } = useFormContext()
+  } = useFormContext<TFieldValues>()
   const fieldId = `userType-${name}`
   const error = errors[name]
 

@@ -73,7 +73,26 @@ interface UserTypeSelectionProps<TFieldValues extends FieldValues> {
   name: Path<TFieldValues>
   label: string
   options: Option[]
-  register: UseFormRegister<TFieldValues>
   required?: boolean
+  onUserTypeChange?: (value: string) => void
+}
+
+interface TextFieldProps {
+  name: string
+  label: string
+  type?: string
+  placeholder?: string
+  required?: boolean
+}
+
+interface Option {
+  value: string
+  label: string
+}
+
+interface UserTypeSelectionProps {
+  name: string
+  label: string
+  options: Option[]
   onUserTypeChange?: (value: string) => void
 }

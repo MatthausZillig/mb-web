@@ -65,7 +65,6 @@ function FormComponent<TFieldValues extends FieldValues>({
 
   const {
     handleSubmit,
-    register,
     formState: { errors },
     control,
   } = formMethods
@@ -105,7 +104,7 @@ function FormComponent<TFieldValues extends FieldValues>({
           )
       }
     },
-    [register, control, errors, onUserTypeChange]
+    [control, errors, onUserTypeChange]
   )
 
   return (
@@ -156,5 +155,4 @@ function FormComponent<TFieldValues extends FieldValues>({
     </FormProvider>
   )
 }
-
 export default memo(FormComponent) as typeof FormComponent
