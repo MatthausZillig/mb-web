@@ -13,20 +13,9 @@ import {
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { FormField } from '../../store/FormContext'
-import { getAllFieldsValidationSchema, StepId, validationSchema } from '../../utils/validationSchema'
+import { getAllFieldsValidationSchema, validationSchema } from '../../utils/validationSchema'
 import { applyDateMask } from '../../utils/dateMask'
-
-export interface FormProps<TFieldValues extends FieldValues> {
-  fields: FormField[]
-  formData: Partial<TFieldValues>
-  showBackButton?: boolean
-  stepId: StepId
-  isLastStep: boolean
-  onSubmit: (values: TFieldValues) => void
-  onBack?: () => void
-  onUserTypeChange?: (type: string) => void
-}
+import { FormProps, FormField } from '../../../types/step-form'
 
 function Form<TFieldValues extends FieldValues>({
   fields,

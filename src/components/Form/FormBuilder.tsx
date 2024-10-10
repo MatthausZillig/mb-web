@@ -2,13 +2,10 @@
 
 import React from 'react'
 import { FieldValues } from 'react-hook-form'
-import { useStepForm, UserType } from '../../store/FormContext'
+import { useStepForm } from '../../store/FormContext'
 import Form from './Form'
 import { StepId } from '../../utils/validationSchema'
-
-export interface FormBuilderProps<TFieldValues extends FieldValues> {
-  onSubmit: (values: TFieldValues) => void
-}
+import { FormBuilderProps, UserType } from '../../../types/step-form'
 
 function FormBuilder<TFieldValues extends FieldValues>({
   onSubmit,

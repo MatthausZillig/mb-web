@@ -8,46 +8,17 @@ import {
   useMemo,
 } from 'react'
 
-import { StepFormItemProps } from '../../types/step-form'
+import { StepFormContextType, StepFormItemProps, UserType, FormField } from '../../types/step-form'
 
-export interface FormField {
-  name: string
-  type?: string
-  label?: string
-  placeholder?: string
-  required?: boolean
-  options?: { value: string; label: string }[]
-}
 
-interface FormData {
-  [key: string]: any
-}
-
-export type UserType = 'CPF' | 'CNPJ'
-
-interface StepFormContextType {
-  steps: StepFormItemProps[]
-  currentStepIndex: number
-  userType: UserType | null
-  formData: FormData
-  setUserType: (type: UserType) => void
-  nextStep: () => void
-  previousStep: () => void
-  isLastStep: () => boolean
-  isFirstStep: () => boolean
-  getCurrentStep: () => StepFormItemProps
-  updateFormData: (data: Partial<FormData>) => void
-  getFieldsForStep: (stepIndex: number) => FormField[]
-}
 
 const StepFormContext = createContext<StepFormContextType | undefined>(
   undefined
 )
 
 export function FormProvider({ children }: { children: ReactNode }) {
-  const [formData, setFormData] = useState<FormData>({})
+  const [formData, setFormData] = useState<FormData>({} as FormData)
   const updateFormData = useCallback((data: Partial<FormData>) => {
-    console.log('updateFormData', data)
     setFormData((prevData) => ({ ...prevData, ...data }))
   }, [])
 
@@ -233,7 +204,6 @@ export function FormProvider({ children }: { children: ReactNode }) {
     </StepFormContext.Provider>
   )
 }
-
 export function useStepForm() {
   const context = useContext(StepFormContext)
   if (context === undefined) {

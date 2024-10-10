@@ -1,10 +1,4 @@
-interface RegistrationData {
-  [key: string]: any
-}
-
-export interface RegistrationOptions {
-  message: string
-}
+import { RegistrationData } from '../../types/registration-service'
 
 export const registrationPost = async (
   data: RegistrationData
