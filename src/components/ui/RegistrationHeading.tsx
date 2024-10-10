@@ -1,4 +1,4 @@
-import React from 'react'
+import { ReactElement } from 'react'
 
 interface RegistrationHeadingProps {
   title: string
@@ -8,7 +8,7 @@ interface RegistrationHeadingProps {
 export function RegistrationHeading({
   title,
   step,
-}: Readonly<RegistrationHeadingProps>): React.ReactElement {
+}: Readonly<RegistrationHeadingProps>): ReactElement {
   return (
     <div className="flex flex-col items-start justify-center max-w-xs mx-auto my-6">
       <p className="text-sm font-medium text-gray-900">

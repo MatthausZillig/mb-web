@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo, memo, ReactElement } from 'react'
 import {
   FormProvider,
   useForm,
@@ -16,7 +16,7 @@ import {
 } from '../../utils/validationSchema'
 import { FormProps, FormField } from '../../../types/step-form'
 import { Buttons, SubmittingStatus } from '../../constants/forms'
-import DateField from './DateField'
+import { DateField } from './DateField'
 
 function FormComponent<TFieldValues extends FieldValues>({
   fields,
@@ -29,7 +29,7 @@ function FormComponent<TFieldValues extends FieldValues>({
   onSubmit,
   onBack,
   onUserTypeChange,
-}: Readonly<FormProps<TFieldValues>>): React.ReactElement {
+}: Readonly<FormProps<TFieldValues>>): ReactElement {
   const schema = useMemo(
     () =>
       isLastStep
@@ -192,4 +192,4 @@ function FormComponent<TFieldValues extends FieldValues>({
   )
 }
 
-export default React.memo(FormComponent) as typeof FormComponent
+export default memo(FormComponent) as typeof FormComponent
