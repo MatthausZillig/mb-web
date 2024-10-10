@@ -84,14 +84,7 @@ function FormComponent<TFieldValues extends FieldValues>({
             />
           )
         case 'date':
-          return (
-            <DateField
-              key={field.name}
-              field={field}
-              control={control}
-              errors={errors}
-            />
-          )
+          return <DateField key={field.name} field={field} errors={errors} />
         default:
           return (
             <TextField

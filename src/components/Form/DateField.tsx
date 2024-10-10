@@ -1,21 +1,28 @@
-import { useState, ChangeEvent } from 'react'
-import { Controller, FieldValues, Path } from 'react-hook-form'
+import React, { useState, useEffect } from 'react'
+import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form'
 import { applyDateMask } from '../../utils/dateMask'
 import { FormField } from '../../../types/step-form'
 
 export function DateField<TFieldValues extends FieldValues>({
   field,
-  control,
   errors,
 }: {
   field: FormField
-  control: any
   errors: any
 }) {
-  const [localValue, setLocalValue] = useState('')
+  const { control, getValues } = useFormContext<TFieldValues>()
+  const [localValue, setLocalValue] = useState(() => {
+    const initialValue = getValues(field.name as Path<TFieldValues>)
+    return applyDateMask(initialValue || '')
+  })
+
+  useEffect(() => {
+    const initialValue = getValues(field.name as Path<TFieldValues>)
+    setLocalValue(applyDateMask(initialValue || ''))
+  }, [getValues, field.name])
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement>,
     onChange: (value: string) => void
   ) => {
     const maskedValue = applyDateMask(e.target.value)
