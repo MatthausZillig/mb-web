@@ -63,3 +63,17 @@ export interface StepFormContextType {
 export interface FormBuilderProps<TFieldValues extends FieldValues> {
   onSubmit: (values: TFieldValues) => void
 }
+
+interface Option {
+  value: string
+  label: string
+}
+
+interface UserTypeSelectionProps<TFieldValues extends FieldValues> {
+  name: Path<TFieldValues>
+  label: string
+  options: Option[]
+  register: UseFormRegister<TFieldValues>
+  required?: boolean
+  onUserTypeChange?: (value: string) => void
+}

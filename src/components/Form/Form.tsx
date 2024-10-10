@@ -3,7 +3,6 @@ import {
   FormProvider,
   useForm,
   FieldValues,
-  Path,
   DefaultValues,
   Resolver,
   ResolverOptions,
@@ -17,6 +16,8 @@ import {
 import { FormProps, FormField } from '../../../types/step-form'
 import { Buttons, SubmittingStatus } from '../../constants/forms'
 import { DateField } from './DateField'
+import { UserTypeSelectionField } from './UserTypeSelectionField'
+import { TextField } from './TextField'
 
 function FormComponent<TFieldValues extends FieldValues>({
   fields,
@@ -74,33 +75,13 @@ function FormComponent<TFieldValues extends FieldValues>({
       switch (field.type) {
         case 'userTypeSelection':
           return (
-            <div
+            <UserTypeSelectionField
               key={field.name}
-              className="flex flex-row justify-between items-center"
-            >
-              {field.options?.map((option) => (
-                <div className="flex items-center mb-4" key={option.label}>
-                  <input
-                    type="radio"
-                    value={option.value}
-                    className="flex justify-center w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2"
-                    {...register(field.name as Path<TFieldValues>, {
-                      required: field.required
-                        ? `${field.label} is required`
-                        : false,
-                      onChange: (e) =>
-                        onUserTypeChange && onUserTypeChange(e.target.value),
-                    })}
-                  />
-                  <label
-                    key={option.value}
-                    className="flex justify-center text-sm font-medium text-gray-900"
-                  >
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-            </div>
+              name={field.name}
+              label={field.label || ''}
+              options={field.options || []}
+              onUserTypeChange={onUserTypeChange}
+            />
           )
         case 'date':
           return (
@@ -113,30 +94,14 @@ function FormComponent<TFieldValues extends FieldValues>({
           )
         default:
           return (
-            <div key={field.name} className="mb-4">
-              <label
-                htmlFor={field.name}
-                className="block mb-2 text-sm font-semibold text-black-900 dark:text-black-400"
-              >
-                {field.label}
-              </label>
-              <input
-                id={field.name}
-                type={field.type}
-                placeholder={field.placeholder}
-                {...register(field.name as Path<TFieldValues>, {
-                  required: field.required
-                    ? `${field.label} is required`
-                    : false,
-                })}
-                className="border border-black-500 text-black-900 dark:text-black-400 placeholder-black-700 dark:placeholder-black-500 text-sm rounded-lg focus:ring-black-500 focus:border-black-500 block w-full p-2.5 dark:border-black-500"
-              />
-              {errors[field.name as Path<TFieldValues>] && (
-                <span className="text-red-500 text-sm">
-                  {errors[field.name as Path<TFieldValues>]?.message as string}
-                </span>
-              )}
-            </div>
+            <TextField
+              key={field.name}
+              name={field.name}
+              label={field.label || ''}
+              type={field.type}
+              placeholder={field.placeholder}
+              required={field.required}
+            />
           )
       }
     },
