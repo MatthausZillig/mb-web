@@ -23,30 +23,44 @@ const staticPath: string = path.join(__dirname, '../dist')
 app.use(express.static(staticPath))
 
 app.get('/registration', (req: Request, res: Response): void => {
-    if(req.path.startsWith('/')) {
-      res.sendFile(path.join(staticPath, 'index.html'))
-    }
-})
-
-app.post('/registration', (req: Request<{}, {}, RegistrationData>, res: Response): void => {
-  const { EMAIL, NAME, DOCUMENT, BIRTH, PHONE, PASSWORD } = req.body
-
-  const requiredFields: (keyof RegistrationData)[] = ['EMAIL', 'NAME', 'DOCUMENT', 'BIRTH', 'PHONE', 'PASSWORD']
-  const missingFields: string[] = requiredFields.filter(field => !req.body[field])
-
-  if (missingFields.length > 0) {
-    res.status(400).json({ error: `Campos obrigatórios faltando: ${missingFields.join(', ')}` })
-    return
+  if (req.path.startsWith('/')) {
+    res.sendFile(path.join(staticPath, 'index.html'))
   }
-
-  console.log('Registro recebido:', { EMAIL, NAME, DOCUMENT, BIRTH, PHONE })
-  
-  setTimeout(() => {
-    res.status(200).json({ message: 'Cadastro recebido com sucesso!' })
-  }, 2000)
 })
+
+app.post(
+  '/registration',
+  (req: Request<{}, {}, RegistrationData>, res: Response): void => {
+    const { EMAIL, NAME, DOCUMENT, BIRTH, PHONE, PASSWORD } = req.body
+
+    const requiredFields: (keyof RegistrationData)[] = [
+      'EMAIL',
+      'NAME',
+      'DOCUMENT',
+      'BIRTH',
+      'PHONE',
+      'PASSWORD',
+    ]
+    const missingFields: string[] = requiredFields.filter(
+      (field) => !req.body[field]
+    )
+
+    if (missingFields.length > 0) {
+      res.status(400).json({
+        error: `Campos obrigatórios faltando: ${missingFields.join(', ')}`,
+      })
+      return
+    }
+
+    console.log('Registro recebido:', { EMAIL, NAME, DOCUMENT, BIRTH, PHONE })
+
+    setTimeout(() => {
+      res.status(200).json({ message: 'Cadastro recebido com sucesso!' })
+    }, 2000)
+  }
+)
 app.use((req: Request, res: Response): void => {
-  if(!req.path.startsWith('/registration') && res.status(404)) {
+  if (!req.path.startsWith('/registration') && res.status(404)) {
     res.sendFile(path.join(staticPath, 'index.html'))
   }
 })

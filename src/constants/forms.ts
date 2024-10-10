@@ -15,6 +15,12 @@ export enum Buttons {
   SUBMIT = 'Cadastrar',
 }
 
+export enum SubmittingStatus {
+  SUBMITTING = 'Enviando...',
+  SUBMITTED = 'Enviado com sucesso!',
+  ERROR = 'Erro ao enviar, tente novamente!',
+}
+
 export enum StepId {
   STEP_1 = 'STEP_1',
   STEP_2 = 'STEP_2',

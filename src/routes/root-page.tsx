@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { useStepForm } from '../store/FormContext'
 import { RegistrationHeading } from '../components/ui/RegistrationHeading'
-import { registrationPost } from '../services/registration.post'
 import { StepTitle, StepTitleCNPJ } from '../constants/forms'
 import { StepFormItemProps } from '../../types/step-form'
 
@@ -21,7 +20,7 @@ function RoutePage() {
   return (
     <Suspense fallback={<div>...loading</div>}>
       <RegistrationHeading title={parsedTitle} step={currentStepIndex + 1} />
-      <LazyFormBuilder onSubmit={registrationPost} />
+      <LazyFormBuilder />
     </Suspense>
   )
 }

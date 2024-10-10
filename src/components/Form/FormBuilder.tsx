@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FieldValues } from 'react-hook-form'
 import { useStepForm } from '../../store/FormContext'
 import Form from './Form'
-import { StepId } from '../../utils/validationSchema'
-import { FormBuilderProps, UserType } from '../../../types/step-form'
+import { UserType } from '../../../types/step-form'
+import { registrationPost } from '../../services/registration.post'
+import { StepId } from '../../constants/forms'
 
-function FormBuilder<TFieldValues extends FieldValues>({
-  onSubmit,
-}: Readonly<FormBuilderProps<TFieldValues>>): React.ReactElement {
+function FormBuilder<TFieldValues extends FieldValues>(): React.ReactElement {
   const {
     getCurrentStep,
     nextStep,
@@ -21,10 +20,26 @@ function FormBuilder<TFieldValues extends FieldValues>({
     formData,
   } = useStepForm()
 
-  const handleFormSubmit = (values: TFieldValues) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState(false)
+
+  const handleFormSubmit = async (values: TFieldValues) => {
     updateFormData(values)
     if (isLastStep()) {
-      onSubmit(values)
+      setIsSubmitting(true)
+      try {
+        const result = await registrationPost(values as any)
+        if (result.success) {
+          alert(result.message)
+        } else {
+          setError(true)
+          alert(`Error ${result.status}: ${result.message}`)
+        }
+      } catch (error) {
+        setError(true)
+      } finally {
+        setIsSubmitting(false)
+      }
     } else {
       nextStep()
     }
@@ -45,6 +60,8 @@ function FormBuilder<TFieldValues extends FieldValues>({
         stepId={getCurrentStep().id as StepId}
         isLastStep={isLastStep()}
         onSubmit={handleFormSubmit}
+        isSubmitting={isSubmitting}
+        hasError={error}
         onBack={!isFirstStep() ? previousStep : undefined}
         onUserTypeChange={(type: string) => setUserType(type as UserType)}
       />

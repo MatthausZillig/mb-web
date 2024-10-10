@@ -29,9 +29,11 @@ export interface FormField {
 export interface FormProps<TFieldValues extends FieldValues> {
   fields: FormField[]
   formData: Partial<TFieldValues>
+  hasError: boolean
   showBackButton?: boolean
   stepId: StepId
   isLastStep: boolean
+  isSubmitting: boolean
   onSubmit: (values: TFieldValues) => void
   onBack?: () => void
   onUserTypeChange?: (type: string) => void
