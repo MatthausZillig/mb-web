@@ -52,6 +52,19 @@ Clone o repositório:
 
 Acesse a aplicação em seu navegador em http://localhost:3000 (ou a porta configurada).
 
+### Gerenciador de Pacotes
+
+Este projeto utiliza pnpm como gerenciador de pacotes. O pnpm foi escolhido devido à seguinte vantagem:
+
+- Instalação mais rápida de pacotes, especialmente em projetos grandes ou monorepos.
+
+Alternativa usando npm
+Se você preferir não usar pnpm, pode usar npm. Substitua pnpm por npm em todos os comandos. Por exemplo:
+
+Para instalar dependências: npm install
+Para executar scripts: npm run [script-name]
+
+#### PS
 > Importância do Processo de Build
 > O processo de build do cliente (passo 3) é crucial e deve ser executado antes de iniciar o servidor. Aqui está o porquê:
 >
