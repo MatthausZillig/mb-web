@@ -17,6 +17,16 @@ type ValidationSchema = {
 
 const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/
 
+const documentValidation = yup.string().test('document-validation', 'Documento inválido', function(value) {
+  const userType = this.parent.userType;
+  if (userType === 'CPF') {
+    return /^\d{11}$/.test(value || '') || this.createError({ message: 'CPF inválido' });
+  } else if (userType === 'CNPJ') {
+    return /^\d{14}$/.test(value || '') || this.createError({ message: 'CNPJ inválido' });
+  }
+  return this.createError({ message: 'Tipo de usuário inválido' });
+}).required('Documento é obrigatório');
+
 export const validationSchema: ValidationSchema = {
   [StepId.STEP_1]: {
     EMAIL: yup.string().email('Email inválido').required('Email é obrigatório'),
@@ -27,21 +37,11 @@ export const validationSchema: ValidationSchema = {
   },
   [StepId.STEP_2]: {
     NAME: yup.string().required('Nome é obrigatório'),
-    DOCUMENT: yup.string().when('userType', {
-      is: (userType: string) => userType === 'CPF',
-      then: (schema) =>
-        schema
-          .matches(/^\d{11}$/, 'CPF inválido')
-          .required('CPF é obrigatório'),
-      otherwise: (schema) =>
-        schema
-          .matches(/^\d{14}$/, 'CNPJ inválido')
-          .required('CNPJ é obrigatório'),
-    }),
+    DOCUMENT: documentValidation,
     BIRTH: yup
       .string()
       .matches(dateRegex, 'Data inválida. Use o formato DD/MM/AAAA')
-      .required('Data de nascimento é obrigatória')
+      .required('Data é obrigatória')
       .test('valid-date', 'Data inválida', function (value) {
         if (!value) return false
         const [day, month, year] = value.split('/')
@@ -69,4 +69,13 @@ export const validationSchema: ValidationSchema = {
       .required('Senha é obrigatória'),
   },
   [StepId.STEP_4]: {},
+}
+
+export const getAllFieldsValidationSchema = () => {
+  return yup.object().shape({
+    ...Object.values(validationSchema).reduce((acc, stepSchema) => {
+      return { ...acc, ...stepSchema }
+    }, {}),
+    DOCUMENT: documentValidation,
+  })
 }

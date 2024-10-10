@@ -47,6 +47,7 @@ const StepFormContext = createContext<StepFormContextType | undefined>(
 export function FormProvider({ children }: { children: ReactNode }) {
   const [formData, setFormData] = useState<FormData>({})
   const updateFormData = useCallback((data: Partial<FormData>) => {
+    console.log('updateFormData', data)
     setFormData((prevData) => ({ ...prevData, ...data }))
   }, [])
 
@@ -168,7 +169,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
               ]
             : [
                 { name: 'NAME', label: 'Nome', type: 'text', required: true },
-                { name: 'CNPJ', label: 'CNPJ', type: 'text', required: true },
+                { name: 'DOCUMENT', label: 'CNPJ', type: 'text', required: true },
                 {
                   name: 'BIRTH',
                   label: 'Data de abertura',

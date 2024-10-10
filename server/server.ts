@@ -1,4 +1,5 @@
 import express, { Request, Response, Application } from 'express'
+import compression from 'compression'
 import cors from 'cors'
 import path from 'path'
 
@@ -15,6 +16,7 @@ const app: Application = express()
 const port: number = process.env.PORT ? parseInt(process.env.PORT) : 3000
 
 app.use(cors())
+app.use(compression())
 app.use(express.json())
 
 const staticPath: string = path.join(__dirname, '../dist')
@@ -39,7 +41,9 @@ app.post('/registration', (req: Request<{}, {}, RegistrationData>, res: Response
 
   console.log('Registro recebido:', { EMAIL, NAME, DOCUMENT, BIRTH, PHONE })
   
-  res.status(200).json({ message: 'Registro recebido com sucesso.' })
+  setTimeout(() => {
+    res.status(200).json({ message: 'Cadastro recebido com sucesso!' })
+  }, 2000)
 })
 app.use((req: Request, res: Response): void => {
   if(!req.path.startsWith('/registration') && res.status(404)) {

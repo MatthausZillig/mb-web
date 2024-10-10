@@ -1,23 +1,27 @@
 import { useStepForm } from '../store/FormContext'
-import FormBuilder from '../components/Form/FormBuilder'
 import { RegistrationHeading } from '../components/ui/RegistrationHeading'
 import { registrationPost } from '../services/registration.post'
+import { lazy, Suspense } from 'react'
 
-function RoutePage() {
-  const { formData, currentStepIndex } = useStepForm()
+const LazyFormBuilder = lazy(() => import('../components/Form/FormBuilder'))
 
-  console.log('currentStepIndex', currentStepIndex)
-
-  return (
-    <div>
-      <RegistrationHeading title="Cadastro" step={currentStepIndex + 1} />
-      <FormBuilder
-        onSubmit={() => {
-          registrationPost(formData)
-        }}
-      />
-    </div>
-  )
+export enum StepTitle {
+  STEP_1 = 'Seja bem vindo(a)',
+  STEP_2 = 'Pessoa física',
+  STEP_3 = 'Senha de acesso',
+  STEP_4 = 'Revise suas informações',
 }
 
+function RoutePage() {
+  const { currentStepIndex, getCurrentStep } = useStepForm()
+
+  return (
+    <Suspense fallback={<div>...loading</div>}>
+      <RegistrationHeading title={StepTitle[getCurrentStep().id as keyof typeof StepTitle]} step={currentStepIndex + 1} />
+      <LazyFormBuilder
+        onSubmit={registrationPost}
+      />
+    </Suspense>
+  )
+}
 export default RoutePage

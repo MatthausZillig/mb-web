@@ -8,11 +8,13 @@ import {
   Path,
   DefaultValues,
   Controller,
+  Resolver,
+  ResolverOptions,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { FormField } from '../../store/FormContext'
-import { StepId, validationSchema } from '../../utils/validationSchema'
+import { getAllFieldsValidationSchema, StepId, validationSchema } from '../../utils/validationSchema'
 import { applyDateMask } from '../../utils/dateMask'
 
 export interface FormProps<TFieldValues extends FieldValues> {
@@ -36,13 +38,29 @@ function Form<TFieldValues extends FieldValues>({
   onBack,
   onUserTypeChange,
 }: Readonly<FormProps<TFieldValues>>): React.ReactElement {
-  const schema = yup
-    .object()
-    .shape(validationSchema[stepId as keyof typeof validationSchema])
+    const schema = isLastStep
+    ? getAllFieldsValidationSchema()
+    : yup.object().shape(validationSchema[stepId as keyof typeof validationSchema])
+
+  const customResolver: Resolver<TFieldValues> = async (
+    values,
+    context,
+    options
+  ) => {
+    const yupResult = await yupResolver(schema)(
+      values,
+      context,
+      options as ResolverOptions<FieldValues>
+    )
+    return {
+      values: yupResult.values as TFieldValues,
+      errors: yupResult.errors,
+    }
+  }
 
   const formMethods = useForm<TFieldValues>({
     defaultValues: formData as DefaultValues<TFieldValues>,
-    resolver: yupResolver(schema),
+    resolver: customResolver,
     mode: 'onBlur',
     reValidateMode: 'onChange',
   })
@@ -172,5 +190,4 @@ function Form<TFieldValues extends FieldValues>({
     </FormProvider>
   )
 }
-
 export default Form
