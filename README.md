@@ -34,7 +34,7 @@ Clone o repositório:
 
 `git clone git@github.com:MatthausZillig/mb-web.git`
 
-`cd md-web`
+`cd mb-web`
 
 ### 1 - Instale as dependências:
 
