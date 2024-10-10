@@ -7,6 +7,7 @@ Frontend:
 - React Hook Form (para gerenciamento de formulários)
 - Yup (para validação de esquemas)
 - Tailwind CSS (para estilização)
+- Terser (para otimização e minificação)
 
 Backend:
 
