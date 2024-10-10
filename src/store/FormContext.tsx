@@ -33,7 +33,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
           {
             name: 'EMAIL',
             label: 'Endereço de e-mail',
-            type: 'text',
+            type: 'email',
             required: true,
           },
           {
