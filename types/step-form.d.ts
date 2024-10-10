@@ -1,6 +1,6 @@
 export interface StepFormItemProps {
     id: string;
-    fields: Array<{ name: string, label: string, type: string,required: boolean }>;
+    fields: Array<{ name: string, label: string, type: string, required: boolean, options?: Array<{value: string, label: string}> }>;
   }
   
   export interface StepFormProps {
