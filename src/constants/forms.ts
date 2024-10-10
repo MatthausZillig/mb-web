@@ -14,3 +14,10 @@ export enum Buttons {
   BACK = 'Voltar',
   SUBMIT = 'Cadastrar',
 }
+
+export enum StepId {
+  STEP_1 = 'STEP_1',
+  STEP_2 = 'STEP_2',
+  STEP_3 = 'STEP_3',
+  STEP_4 = 'STEP_4',
+}

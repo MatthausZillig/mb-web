@@ -135,7 +135,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
                 {
                   name: 'BIRTH',
                   label: 'Data de nascimento',
-                  type: 'text',
+                  type: 'date',
                   required: true,
                 },
                 {
@@ -156,7 +156,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
                 {
                   name: 'BIRTH',
                   label: 'Data de abertura',
-                  type: 'text',
+                  type: 'date',
                   required: true,
                 },
                 {

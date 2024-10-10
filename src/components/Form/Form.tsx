@@ -1,5 +1,3 @@
-// Form.tsx
-
 import React from 'react'
 import {
   FormProvider,
@@ -20,6 +18,7 @@ import {
 import { applyDateMask } from '../../utils/dateMask'
 import { FormProps, FormField } from '../../../types/step-form'
 import { Buttons } from '../../constants/forms'
+import DateField from './DateField'
 
 function Form<TFieldValues extends FieldValues>({
   fields,
@@ -76,7 +75,7 @@ function Form<TFieldValues extends FieldValues>({
             className="flex flex-row justify-between items-center"
           >
             {field.options?.map((option) => (
-              <div className="flex items-center mb-4">
+              <div className="flex items-center mb-4" key={option.label}>
                 <input
                   type="radio"
                   value={option.value}
@@ -101,39 +100,12 @@ function Form<TFieldValues extends FieldValues>({
         )
       case 'date':
         return (
-          <div key={field.name} className="mb-6">
-            <label
-              htmlFor={field.name}
-              className="block mb-2 text-sm font-semibold text-black-900 dark:text-black-400"
-            >
-              {field.label}
-            </label>
-            <Controller
-              name={field.name as Path<TFieldValues>}
-              control={control}
-              rules={{
-                required: field.required ? `${field.label} is required` : false,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <input
-                  type="text"
-                  placeholder={'DD/MM/AAAA'}
-                  value={value as string}
-                  onChange={(e) => {
-                    const maskedValue = applyDateMask(e.target.value)
-                    onChange(maskedValue)
-                  }}
-                  onBlur={onBlur}
-                  className="border border-black-500 text-black-900 dark:text-black-400 placeholder-black-700 dark:placeholder-black-500 text-sm rounded-lg focus:ring-black-500 focus:border-black-500 block w-full p-2.5 dark:border-black-500"
-                />
-              )}
-            />
-            {errors[field.name as Path<TFieldValues>] && (
-              <span className="text-red-500 text-sm">
-                {errors[field.name as Path<TFieldValues>]?.message as string}
-              </span>
-            )}
-          </div>
+          <DateField
+            key={field.name}
+            field={field}
+            control={control}
+            errors={errors}
+          />
         )
       default:
         return (
@@ -154,7 +126,7 @@ function Form<TFieldValues extends FieldValues>({
               className="border border-black-500 text-black-900 dark:text-black-400 placeholder-black-700 dark:placeholder-black-500 text-sm rounded-lg focus:ring-black-500 focus:border-black-500 block w-full p-2.5 dark:border-black-500"
             />
             {errors[field.name as Path<TFieldValues>] && (
-              <span>
+              <span className="text-red-500 text-sm">
                 {errors[field.name as Path<TFieldValues>]?.message as string}
               </span>
             )}
@@ -166,19 +138,19 @@ function Form<TFieldValues extends FieldValues>({
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-xs mx-auto">
         {fields.map(renderField)}
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-3">
           {showBackButton && onBack && (
             <button
               type="button"
               onClick={onBack}
-              className="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600"
+              className="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 text-center mb-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600"
             >
               {Buttons.BACK}
             </button>
           )}
           <button
             type="submit"
-            className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 w-full"
+            className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 mb-2 w-full"
           >
             {isLastStep ? Buttons.SUBMIT : Buttons.NEXT}
           </button>

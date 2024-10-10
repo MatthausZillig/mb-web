@@ -1,13 +1,11 @@
 export function applyDateMask(value: string): string {
   const numericValue = value.replace(/\D/g, '')
 
-  let maskedValue = ''
-  for (let i = 0; i < numericValue.length && i < 8; i++) {
-    if (i === 2 || i === 4) {
-      maskedValue += '/'
-    }
-    maskedValue += numericValue[i]
+  if (numericValue.length <= 2) {
+    return numericValue
+  } else if (numericValue.length <= 4) {
+    return `${numericValue.slice(0, 2)}/${numericValue.slice(2)}`
+  } else {
+    return `${numericValue.slice(0, 2)}/${numericValue.slice(2, 4)}/${numericValue.slice(4, 8)}`
   }
-
-  return maskedValue
 }
