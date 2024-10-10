@@ -48,6 +48,8 @@ Clone o repositório:
 
 `cd server`
 
+`pnpm install`
+
 `pnpm start`
 
 Acesse a aplicação em seu navegador em http://localhost:3000 (ou a porta configurada).
