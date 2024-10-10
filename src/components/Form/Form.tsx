@@ -73,17 +73,14 @@ function Form<TFieldValues extends FieldValues>({
         return (
           <div
             key={field.name}
-            className="flex flex-row justify-start items-center"
+            className="flex flex-row justify-between items-center"
           >
             {field.options?.map((option) => (
-              <label
-                key={option.value}
-                className="flex justify-center mb-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
+              <div className="flex items-center mb-4">
                 <input
                   type="radio"
                   value={option.value}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2"
+                  className="flex justify-center w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-2"
                   {...register(field.name as Path<TFieldValues>, {
                     required: field.required
                       ? `${field.label} is required`
@@ -92,8 +89,13 @@ function Form<TFieldValues extends FieldValues>({
                       onUserTypeChange && onUserTypeChange(e.target.value),
                   })}
                 />
-                {option.label}
-              </label>
+                <label
+                  key={option.value}
+                  className="flex justify-center text-sm font-medium text-gray-900"
+                >
+                  {option.label}
+                </label>
+              </div>
             ))}
           </div>
         )
@@ -135,7 +137,7 @@ function Form<TFieldValues extends FieldValues>({
         )
       default:
         return (
-          <div key={field.name} className="mb-6">
+          <div key={field.name} className="mb-4">
             <label
               htmlFor={field.name}
               className="block mb-2 text-sm font-semibold text-black-900 dark:text-black-400"
@@ -162,21 +164,21 @@ function Form<TFieldValues extends FieldValues>({
   }
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm mx-auto">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-xs mx-auto">
         {fields.map(renderField)}
         <div className="flex justify-between">
           {showBackButton && onBack && (
             <button
               type="button"
               onClick={onBack}
-              className="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600 dark:focus:ring-yellow-900"
+              className="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600"
             >
               {Buttons.BACK}
             </button>
           )}
           <button
             type="submit"
-            className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+            className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-transparent font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 w-full"
           >
             {isLastStep ? Buttons.SUBMIT : Buttons.NEXT}
           </button>

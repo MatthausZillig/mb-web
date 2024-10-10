@@ -5,6 +5,10 @@ export enum StepTitle {
   STEP_4 = 'Revise suas informações',
 }
 
+export enum StepTitleCNPJ {
+  STEP_2 = 'Pessoa jurídica',
+}
+
 export enum Buttons {
   NEXT = 'Continuar',
   BACK = 'Voltar',

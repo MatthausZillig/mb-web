@@ -33,7 +33,7 @@ function FormBuilder<TFieldValues extends FieldValues>({
   const currentStepIndex = steps.findIndex(
     (step) => step.id === getCurrentStep().id
   )
-  
+
   const fields = getFieldsForStep(currentStepIndex)
 
   return (

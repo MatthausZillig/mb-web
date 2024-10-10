@@ -10,7 +10,7 @@ export function RegistrationHeading({
   step,
 }: Readonly<RegistrationHeadingProps>): React.ReactElement {
   return (
-    <div className="flex flex-col items-start justify-center max-w-sm mx-auto my-6">
+    <div className="flex flex-col items-start justify-center max-w-xs mx-auto my-6">
       <p className="text-sm font-medium text-gray-900">
         Etapa <span className="text-yellow-500"> {step} </span> de 4
       </p>
