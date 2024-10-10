@@ -31,6 +31,7 @@ function FormBuilder<TFieldValues extends FieldValues>(): ReactElement {
         const result = await registrationPost(values as any)
         if (result.success) {
           alert(result.message)
+          setError(false)
         } else {
           setError(true)
           alert(`Error ${result.status}: ${result.message}`)
