@@ -17,15 +17,24 @@ type ValidationSchema = {
 
 const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d\d$/
 
-const documentValidation = yup.string().test('document-validation', 'Documento inválido', function(value) {
-  const userType = this.parent.userType;
-  if (userType === 'CPF') {
-    return /^\d{11}$/.test(value || '') || this.createError({ message: 'CPF inválido' });
-  } else if (userType === 'CNPJ') {
-    return /^\d{14}$/.test(value || '') || this.createError({ message: 'CNPJ inválido' });
-  }
-  return this.createError({ message: 'Tipo de usuário inválido' });
-}).required('Documento é obrigatório');
+const documentValidation = yup
+  .string()
+  .test('document-validation', 'Documento inválido', function (value) {
+    const userType = this.parent.userType
+    if (userType === 'CPF') {
+      return (
+        /^\d{11}$/.test(value || '') ||
+        this.createError({ message: 'CPF inválido' })
+      )
+    } else if (userType === 'CNPJ') {
+      return (
+        /^\d{14}$/.test(value || '') ||
+        this.createError({ message: 'CNPJ inválido' })
+      )
+    }
+    return this.createError({ message: 'Tipo de usuário inválido' })
+  })
+  .required('Documento é obrigatório')
 
 export const validationSchema: ValidationSchema = {
   [StepId.STEP_1]: {

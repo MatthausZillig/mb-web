@@ -1,5 +1,3 @@
-// FormBuilder.tsx
-
 import React from 'react'
 import { FieldValues } from 'react-hook-form'
 import { useStepForm } from '../../store/FormContext'
@@ -35,6 +33,7 @@ function FormBuilder<TFieldValues extends FieldValues>({
   const currentStepIndex = steps.findIndex(
     (step) => step.id === getCurrentStep().id
   )
+  
   const fields = getFieldsForStep(currentStepIndex)
 
   return (

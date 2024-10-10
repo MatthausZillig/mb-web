@@ -8,9 +8,12 @@ import {
   useMemo,
 } from 'react'
 
-import { StepFormContextType, StepFormItemProps, UserType, FormField } from '../../types/step-form'
-
-
+import {
+  StepFormContextType,
+  StepFormItemProps,
+  UserType,
+  FormField,
+} from '../../types/step-form'
 
 const StepFormContext = createContext<StepFormContextType | undefined>(
   undefined
@@ -110,6 +113,10 @@ export function FormProvider({ children }: { children: ReactNode }) {
     [steps, currentStepIndex]
   )
 
+  /**
+   * Updates the fields for the second step of the form based on the user's selected type (CPF or CNPJ).
+   * This effect is triggered whenever the `userType` state changes.
+   */
   useEffect(() => {
     if (userType) {
       const updatedSteps = [...initialSteps]
@@ -140,7 +147,12 @@ export function FormProvider({ children }: { children: ReactNode }) {
               ]
             : [
                 { name: 'NAME', label: 'Nome', type: 'text', required: true },
-                { name: 'DOCUMENT', label: 'CNPJ', type: 'text', required: true },
+                {
+                  name: 'DOCUMENT',
+                  label: 'CNPJ',
+                  type: 'text',
+                  required: true,
+                },
                 {
                   name: 'BIRTH',
                   label: 'Data de abertura',
@@ -156,6 +168,10 @@ export function FormProvider({ children }: { children: ReactNode }) {
               ],
       }
 
+      /**
+       * Filters the fields from the updated steps, excluding fields with a 'userTypeSelection' type.
+       * This is used to get the fields that should be displayed in the review step of the form.
+       */
       const reviewFields = updatedSteps.flatMap((step) =>
         step.fields.filter((field) => field.type !== 'userTypeSelection')
       )

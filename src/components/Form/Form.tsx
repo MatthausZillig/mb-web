@@ -13,9 +13,13 @@ import {
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { getAllFieldsValidationSchema, validationSchema } from '../../utils/validationSchema'
+import {
+  getAllFieldsValidationSchema,
+  validationSchema,
+} from '../../utils/validationSchema'
 import { applyDateMask } from '../../utils/dateMask'
 import { FormProps, FormField } from '../../../types/step-form'
+import { Buttons } from '../../constants/forms'
 
 function Form<TFieldValues extends FieldValues>({
   fields,
@@ -27,9 +31,11 @@ function Form<TFieldValues extends FieldValues>({
   onBack,
   onUserTypeChange,
 }: Readonly<FormProps<TFieldValues>>): React.ReactElement {
-    const schema = isLastStep
+  const schema = isLastStep
     ? getAllFieldsValidationSchema()
-    : yup.object().shape(validationSchema[stepId as keyof typeof validationSchema])
+    : yup
+        .object()
+        .shape(validationSchema[stepId as keyof typeof validationSchema])
 
   const customResolver: Resolver<TFieldValues> = async (
     values,
@@ -165,14 +171,14 @@ function Form<TFieldValues extends FieldValues>({
               onClick={onBack}
               className="text-yellow-500 hover:text-white border border-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-2.5 text-center me-2 mb-2 dark:border-yellow-500 dark:text-yellow-500 dark:hover:text-white dark:hover:bg-yellow-600 dark:focus:ring-yellow-900"
             >
-              Voltar
+              {Buttons.BACK}
             </button>
           )}
           <button
             type="submit"
             className="focus:outline-none text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
           >
-            {isLastStep ? 'Cadastrar' : 'Continuar'}
+            {isLastStep ? Buttons.SUBMIT : Buttons.NEXT}
           </button>
         </div>
       </form>
