@@ -13,7 +13,7 @@ import {
   getAllFieldsValidationSchema,
   validationSchema,
 } from '../../utils/validationSchema'
-import { FormProps, FormField } from '../../../types/step-form'
+import { FormProps, FormField } from '../../types/form'
 import { Buttons, SubmittingStatus } from '../../constants/forms'
 import { DateField } from './DateField'
 import { UserTypeSelectionField } from './UserTypeSelectionField'

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form'
 import { applyDateMask } from '../../utils/dateMask'
-import { FormField } from '../../../types/step-form'
+import { FormField } from '../../types/form'
 
 export function DateField<TFieldValues extends FieldValues>({
   field,
@@ -22,7 +22,7 @@ export function DateField<TFieldValues extends FieldValues>({
   }, [getValues, field.name])
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     onChange: (value: string) => void
   ) => {
     const maskedValue = applyDateMask(e.target.value)

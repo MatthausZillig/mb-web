@@ -1,5 +1,5 @@
 import { FieldValues, useFormContext } from 'react-hook-form'
-import { UserTypeSelectionProps } from '../../../types/step-form'
+import { UserTypeSelectionProps } from '../../types/form'
 
 export function UserTypeSelectionField<TFieldValues extends FieldValues>({
   name,

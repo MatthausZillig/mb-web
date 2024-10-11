@@ -2,9 +2,9 @@ import { lazy, Suspense } from 'react'
 import { useStepForm } from '../store/FormContext'
 import { RegistrationHeading } from '../components/ui/RegistrationHeading'
 import { StepTitle, StepTitleCNPJ } from '../constants/forms'
-import { StepFormItemProps } from '../../types/step-form'
+import { StepFormItemProps } from '../types/form'
 
-const LazyFormBuilder = lazy(() => import('../components/Form/FormBuilder'))
+const LazyFormBuilder = lazy(() => import('../components/Form/StepFormCreator'))
 
 function RoutePage() {
   const { currentStepIndex, getCurrentStep, userType } = useStepForm()

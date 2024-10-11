@@ -13,7 +13,7 @@ import {
   StepFormItemProps,
   UserType,
   FormField,
-} from '../../types/step-form'
+} from '../types/form'
 
 const StepFormContext = createContext<StepFormContextType | undefined>(
   undefined

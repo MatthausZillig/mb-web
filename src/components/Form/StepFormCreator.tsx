@@ -2,11 +2,11 @@ import { useState, ReactElement } from 'react'
 import { FieldValues } from 'react-hook-form'
 import { useStepForm } from '../../store/FormContext'
 import Form from './Form'
-import { UserType } from '../../../types/step-form'
+import { UserType } from '../../types/form'
 import { registrationPost } from '../../services/registration.post'
 import { StepId } from '../../constants/forms'
 
-function FormBuilder<TFieldValues extends FieldValues>(): ReactElement {
+function StepFormCreator<TFieldValues extends FieldValues>(): ReactElement {
   const {
     getCurrentStep,
     nextStep,
@@ -69,4 +69,4 @@ function FormBuilder<TFieldValues extends FieldValues>(): ReactElement {
     </>
   )
 }
-export default FormBuilder
+export default StepFormCreator

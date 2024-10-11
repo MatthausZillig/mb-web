@@ -1,4 +1,4 @@
-import { RegistrationData } from '../../types/registration-service'
+import { RegistrationData } from '../types/registration-service'
 
 export interface RegistrationResponse {
   success: boolean

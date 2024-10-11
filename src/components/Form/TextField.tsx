@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import { TextFieldProps } from '../../../types/step-form'
+import { TextFieldProps } from '../../types/form'
 
 export function TextField({
   name,

@@ -1,4 +1,5 @@
-import { ButtonProps } from '../../../types/button-component'
+import { ReactElement } from 'react'
+import { ButtonProps } from '../../types/components-ui'
 
 export function Button({
   type = 'button',
@@ -8,7 +9,7 @@ export function Button({
   fullWidth = false,
   children,
   isLoading = false,
-}: ButtonProps): React.ReactElement {
+}: ButtonProps): ReactElement {
   const baseClasses =
     'font-medium rounded-lg text-sm px-10 py-2.5 text-center mb-2 focus:outline-none focus:ring-transparent'
 
